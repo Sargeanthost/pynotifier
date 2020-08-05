@@ -36,7 +36,7 @@ class Notification:
 	# 'duration' - notification timeout in seconds
 	# 'urgency' - notification urgency level
 	# 'icon_path' - path to notification icon file
-	def __init__(self, title, description, duration=5, urgency=URGENCY_LOW, icon_path=None):
+	def __init__(self, title, description, duration=5, urgency=URGENCY_LOW, icon_path=None, callback_on_click=None):
 		if urgency not in [self.URGENCY_LOW, self.URGENCY_NORMAL, self.URGENCY_CRITICAL]:
 			raise ValueError('invalid urgency was given: {}'.format(urgency))
 		self.__WINDOWS = 'Windows'
@@ -47,6 +47,7 @@ class Notification:
 		self.__urgency = urgency
 		self.__icon_path = icon_path
 		self.__is_windows = False
+		self.__callback_on_click = callback_on_click
 
 	# 'send' - sends notification depending on system
 	def send(self):
@@ -62,8 +63,8 @@ class Notification:
 	def __send_linux(self):
 		import subprocess
 		command = [
-			'notify-send', '{}'.format(self.__title),
-			'{}'.format(self.__description),
+			'notify-send', '"{}"'.format(self.__title),
+			'"{}"'.format(self.__description),
 			'-u', self.__urgency,
 			'-t', '{}'.format(self.__duration * 1000)
 		]
@@ -80,7 +81,8 @@ class Notification:
 				title=self.__title,
 				msg=self.__description,
 				duration=self.__duration,
-				icon_path=self.__icon_path
+				icon_path=self.__icon_path,
+				callback_on_click=self.__callback_on_click
 			)
 		except ImportError:
 			raise ImportError('notifications are not supported, can\'t import necessary library')
