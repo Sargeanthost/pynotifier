@@ -1,6 +1,6 @@
 ## Desktop Notifications
 
-Simple cross-platform (Windows/Linux) Python3 module for displaying desktop notifications.
+Simple cross-platform (Windows/Linux) Python3 module for displaying desktop notifications. This fork, in combination with my other fork of *win10toast*, allows clickable Windows 10 notifications.
 
 ### Installation
 ```bash
