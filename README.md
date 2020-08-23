@@ -13,14 +13,15 @@ If running on Windows: `win10toast`
 ### Example
 ```python
 from pynotifier import Notification
-
+import webbrowser
 
 Notification(
 	title='Notification Title',
 	description='Notification Description',
 	icon_path='path/to/image/file/icon.png', # On Windows .ico is required, on Linux - .png
 	duration=5,                              # Duration in seconds
-	urgency=Notification.URGENCY_CRITICAL
+	urgency=Notification.URGENCY_CRITICAL,
+	callback_on_click = lambda: webbrowser.open(message, new=0, autoraise=True)
 ).send()
 ```
 
